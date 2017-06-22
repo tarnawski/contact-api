@@ -16,5 +16,12 @@
     },
     "require": {
         "swiftmailer/swiftmailer": "^6.0"
+    },
+    "archive": {
+      "exclude": [
+        ".*",
+        ".git",
+        "vagrant/"
+      ]
     }
 }
