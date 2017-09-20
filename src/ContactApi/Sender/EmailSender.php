@@ -1,6 +1,8 @@
 <?php
 
-class ContactApi
+namespace ContactApi\Sender;
+
+class EmailSender implements SenderInterface
 {
     /** @var string */
     private $host;
@@ -39,13 +41,13 @@ class ContactApi
 
     public function send($body = null)
     {
-        $transport = (new Swift_SmtpTransport($this->host, $this->port));
+        $transport = (new \Swift_SmtpTransport($this->host, $this->port));
         $transport->setUsername($this->username);
         $transport->setPassword($this->password);
 
 
-        $mailer = new Swift_Mailer($transport);
-        $message = new Swift_Message($this->subject);
+        $mailer = new \Swift_Mailer($transport);
+        $message = new \Swift_Message($this->subject);
         $message->setFrom($this->address);
         $message->setTo($this->target);
         $message->setBody($body);

@@ -1,5 +1,11 @@
 <?php
 
+use ContactApi\Controller\FrontController;
+
+
+ini_set("display_errors",1);
+error_reporting(E_ALL);
+
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
 
@@ -8,27 +14,12 @@ require_once 'vendor/autoload.php';
 $parameters = [
     'host' => 'host',
     'port' => 'port',
+    'address' => 'address',
     'username' => 'username',
     'password' => 'password',
     'subject' => 'subject',
     'target' => 'target'
 ];
 
-$app = new ContactApi($parameters);
-
-try {
-    $data = json_decode(file_get_contents('php://input'), true);
-    $message = sprintf('%s -  %s', $data['body'], $data['from']);
-    $result = $app->send($message);
-
-    if ($result) {
-        header('Content-Type: application/json');
-        echo json_encode(['status' => 'Success']);
-    } else {
-        header('Content-Type: application/json');
-        echo json_encode(['status' => 'Error']);
-    }
-} catch (Exception $e) {
-    header('Content-Type: application/json');
-    echo json_encode(['status' => 'Error']);
-}
+$app = new FrontController($parameters);
+$app->handle();
