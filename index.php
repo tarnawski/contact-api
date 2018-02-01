@@ -3,8 +3,12 @@
 use ContactApi\Controller\FrontController;
 
 
-ini_set("display_errors",1);
-error_reporting(E_ALL);
+if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
+
+    header('Access-Control-Allow-Origin: *');
+    header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, Authorization");
+    exit;
+}
 
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
